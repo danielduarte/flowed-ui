@@ -1,0 +1,46 @@
+html, body, section {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+body {
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 1.25rem;
+  line-height: 150%;
+  text-align: center;
+  text-shadow: 0 2px 2px #b6701e;
+}
+
+.vside {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 1.75rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.container {
+  display: flex;
+}
+
+.left-half {
+  background-color: #ff9e2c;
+  flex: 1;
+  padding: 1rem;
+}
+
+.right-half {
+  background-color: #b6701e;
+  flex: 1;
+  padding: 1rem;
+}
+
+#rete {
+  display: block;
+  width: 100%;
+}

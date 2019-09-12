@@ -11,13 +11,21 @@
     "url": "git+https://github.com/daniel-duarte/flowed-ui.git"
   },
   "keywords": [
-    "Flowed",
-    "UI"
+    "flowed",
+    "flow",
+    "engine",
+    "gui",
+    "ui",
+    "interface",
+    "graph"
   ],
   "author": "Daniel Duarte <danieldd.ar@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/daniel-duarte/flowed-ui/issues"
   },
-  "homepage": "https://github.com/daniel-duarte/flowed-ui#readme"
+  "homepage": "https://github.com/daniel-duarte/flowed-ui#readme",
+  "dependencies": {
+    "elkjs": "^0.4.1"
+  }
 }
