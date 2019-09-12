@@ -4,24 +4,10 @@ html, body, section {
   margin: 0;
 }
 
-body {
-  color: #fff;
-  font-family: sans-serif;
-  font-size: 1.25rem;
-  line-height: 150%;
-  text-align: center;
-  text-shadow: 0 2px 2px #b6701e;
-}
-
 .vside {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-h1 {
-  font-size: 1.75rem;
-  margin: 0 0 0.75rem 0;
 }
 
 .container {
@@ -29,18 +15,15 @@ h1 {
 }
 
 .left-half {
-  background-color: #ff9e2c;
-  flex: 1;
-  padding: 1rem;
+  flex: 0.5;
 }
 
 .right-half {
-  background-color: #b6701e;
-  flex: 1;
-  padding: 1rem;
+  flex: 1.5;
 }
 
-#rete {
-  display: block;
-  width: 100%;
+#code {
+  height: 100%;
+  font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+  resize: none;
 }

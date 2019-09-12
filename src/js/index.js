@@ -141,7 +141,8 @@ function getComponentNames(yafeFlowSpec) {
     return comps.filter(comp => comp !== null);
 }
 
-const render = () => {
+const render = (yafeFlowSpec) => {
+    document.getElementById('rete').innerHTML = '';
     elk.layout(elkFlow)
         .then(function () {
             const reteFlow = Flow.yafeToReteFlowSpec(yafeFlowSpec);
@@ -151,6 +152,12 @@ const render = () => {
         .catch(console.error);
 };
 
-render();
+render(yafeFlowSpec);
 
-// window.addEventListener('resize', render);
+document.getElementById('code').value = JSON.stringify(yafeFlowSpec, null, 2) + '\n';
+window.addEventListener('resize', () => { render(yafeFlowSpec); });
+
+const code = document.getElementById('code');
+code.addEventListener('keydown', (event) => {
+    console.log(event.target.value);
+});
