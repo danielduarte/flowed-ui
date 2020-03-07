@@ -1,0 +1,11 @@
+.Editor .left,
+.Editor .right {
+    width: 100%;
+    height: 100%;
+}
+
+.Editor .left {
+    resize: none;
+    font-family: "Courier New";
+    font-size: 11px;
+}
