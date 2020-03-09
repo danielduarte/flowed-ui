@@ -9,10 +9,15 @@ const editor = props => {
   const leftPaneWidth = props.viewType === 'code' ? '100%' : props.viewType === 'diagram' ? '0%' : '25%';
 
   return (
-    <SplitPane className={classes.Editor} defaultSize={leftPaneWidth}>
+    <SplitPane
+      className={classes.Editor}
+      defaultSize={leftPaneWidth}
+      size={leftPaneWidth}
+      onDragFinished={window.zoomFlow} >
+
       <AceEditor
         className={classes.left}
-        value={props.code}
+        value={JSON.stringify(props.code, null, '  ')}
         mode="javascript"
         theme="github"
         showPrintMargin={false}
