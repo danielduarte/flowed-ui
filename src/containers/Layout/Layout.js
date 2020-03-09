@@ -4,10 +4,6 @@ import { Navbar, Button, Alignment,ButtonGroup} from '@blueprintjs/core';
 
 class Layout extends Component {
 
-  componentDidMount() {
-    window.renderFlow();
-  }
-
   render() {
     return (
       <Fragment>
