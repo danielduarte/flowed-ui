@@ -1,6 +1,6 @@
 {
   "name": "flowed-ui",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A smart and easy to use UI to design flows made for Flowed",
   "author": "Daniel Duarte <danieldd.ar@gmail.com>",
   "license": "MIT",
@@ -53,6 +53,5 @@
   },
   "bugs": {
     "url": "https://github.com/daniel-duarte/flowed-ui/issues"
-  },
-  "homepage": "https://github.com/daniel-duarte/flowed-ui#readme"
+  }
 }
