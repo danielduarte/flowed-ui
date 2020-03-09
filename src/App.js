@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Editor from './components/Editor/Editor';
 import Layout from './containers/Layout/Layout';
 
 
 function App() {
+  let [viewType, changeViewType] = useState('split');
 
   const flowSpec = '{ "tasks": {} }';
 
   return (
-    <Layout>
-      <Editor code={flowSpec}/>
+    <Layout selectedViewType={viewType} onViewTypeChange={changeViewType}>
+      <Editor code={flowSpec} viewType={viewType}/>
     </Layout>
   );
 }

@@ -4,17 +4,9 @@ import { Navbar, Button, Alignment,ButtonGroup} from '@blueprintjs/core';
 
 class Layout extends Component {
 
-  state = {
-    view: 'split',
-  };
-
   componentDidMount() {
     window.renderFlow();
   }
-
-  handleViewChange = (view) => {
-    this.setState({ view });
-  };
 
   render() {
     return (
@@ -27,16 +19,16 @@ class Layout extends Component {
             <ButtonGroup>
               <Button
                 icon="align-justify"
-                active={this.state.view === 'code'}
-                onClick={() => this.handleViewChange('code')} />
+                active={this.props.selectedViewType === 'code'}
+                onClick={() => this.props.onViewTypeChange('code')} />
               <Button
                 icon="list-detail-view"
-                active={this.state.view === 'split'}
-                onClick={() => this.handleViewChange('split')} />
+                active={this.props.selectedViewType === 'split'}
+                onClick={() => this.props.onViewTypeChange('split')} />
               <Button
                 icon="flow-branch"
-                active={this.state.view === 'diagram'}
-                onClick={() => this.handleViewChange('diagram')} />
+                active={this.props.selectedViewType === 'diagram'}
+                onClick={() => this.props.onViewTypeChange('diagram')} />
             </ButtonGroup>
           </Navbar.Group>
         </Navbar>
