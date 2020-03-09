@@ -8,6 +8,10 @@ class Layout extends Component {
     view: 'split',
   };
 
+  componentDidMount() {
+    window.renderFlow();
+  }
+
   handleViewChange = (view) => {
     this.setState({ view });
   };

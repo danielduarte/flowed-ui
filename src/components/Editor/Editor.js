@@ -5,7 +5,7 @@ import classes from './Editor.module.css';
 import SplitPane from '../../components/ui/SplitPane/SplitPane';
 
 const editor = props => (
-  <SplitPane className={classes.Editor} defaultSize="50%">
+  <SplitPane className={classes.Editor} defaultSize="25%">
     <AceEditor
       className={classes.left}
       value={props.code}
@@ -17,10 +17,8 @@ const editor = props => (
       height={'100%'} />
 
     <div
-      className={classes.right}
-      style={{'backgroundColor': 'blue'}}>
-      RIGHT
-    </div>
+      id="rete"
+      className={classes.right} />
   </SplitPane>
 );
 
