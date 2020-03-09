@@ -1,3 +1,11 @@
+# flowed-ui (_ALPHA_)
+
+[![NPM](https://nodei.co/npm/flowed-ui.png?compact=true)](https://nodei.co/npm/flowed-ui/)
+
+A smart and easy to use UI to design flows made for Flowed
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
