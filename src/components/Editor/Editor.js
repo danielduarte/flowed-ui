@@ -5,8 +5,8 @@ import classes from './Editor.module.css';
 import SplitPane from '../../components/ui/SplitPane/SplitPane';
 import Flowed from '../Flowed/Flowed';
 
-const editor = props => {
 
+const editor = props => {
   const leftPaneWidth = props.viewType === 'code' ? '100%' : props.viewType === 'diagram' ? '0%' : '25%';
 
   const handleOnValidate = (annotations) => {

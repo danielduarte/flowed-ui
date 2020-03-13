@@ -3,12 +3,12 @@ window.Flow = {
     const resolver = taskSpec.resolver;
 
     const inputs = {};
-    Object.keys(resolver.params).map(paramName => {
+    Object.keys(resolver.params || {}).map(paramName => {
       inputs[paramName] = {connections: []};
     });
 
     const outputs = {};
-    Object.keys(resolver.results).map(resultName => {
+    Object.keys(resolver.results || {}).map(resultName => {
       outputs[resultName] = {connections: []};
     });
 
@@ -98,8 +98,7 @@ window.Flow = {
     const nodes = {};
     let taskId = 0;
 
-    for (const taskCode in yafeFlowSpec.tasks) if (yafeFlowSpec.tasks.hasOwnProperty(taskCode)) {
-      const taskSpec = yafeFlowSpec.tasks[taskCode];
+    for (const [taskCode, taskSpec] of Object.entries(yafeFlowSpec.tasks)) {
       nodes[taskCode] = Flow.convertTask(taskSpec, taskId++);
     }
 
@@ -155,9 +154,7 @@ window.Flow = {
     // Create and setup Rete editor
     const container = document.getElementById(elementId);
     const editor = new Rete.NodeEditor('retejs@0.1.0', container);
-    plugins.map(plugin => {
-      editor.use(plugin.default);
-    });
+    plugins.map(plugin => editor.use(plugin.default));
     components.map(c => editor.register(c));
 
     // Load flow data and render
@@ -199,8 +196,8 @@ window.Flow = {
       names.indexOf(yafeFlowSpec.tasks[taskName].resolver.name) === -1 ? (
         names.push(yafeFlowSpec.tasks[taskName].resolver.name), {
           name: yafeFlowSpec.tasks[taskName].resolver.name,
-          inputs: Object.keys(yafeFlowSpec.tasks[taskName].resolver.params),
-          outputs: Object.keys(yafeFlowSpec.tasks[taskName].resolver.results),
+          inputs: Object.keys(yafeFlowSpec.tasks[taskName].resolver.params || {}),
+          outputs: Object.keys(yafeFlowSpec.tasks[taskName].resolver.results || {}),
         }
       ) : null
     ));

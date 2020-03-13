@@ -3,44 +3,63 @@ import Editor from './components/Editor/Editor';
 import Layout from './containers/Layout/Layout';
 
 const initialSpec = {
-  tasks: {
-    sqr1: {
-      requires: ['c1'],
-      provides: ['c1^2'],
-      resolver: {
-        name: 'sqr',
-        params: { x: 'c1' },
-        results: { result: 'c1^2' },
-      },
+  "tasks": {
+    "sqr1": {
+      "provides": [
+        "sqr1_result"
+      ],
+      "resolver": {
+        "name": "sqr",
+        "results": {
+          "result": "sqr1_result"
+        }
+      }
     },
-    sqr2: {
-      requires: ['c2'],
-      provides: ['c2^2'],
-      resolver: {
-        name: 'sqr',
-        params: { x: 'c2' },
-        results: { result: 'c2^2' },
-      },
+    "sqr2": {
+      "provides": [
+        "sqr2_result"
+      ],
+      "resolver": {
+        "name": "sqr",
+        "results": {
+          "result": "sqr2_result"
+        }
+      }
     },
-    sum: {
-      requires: ['c1^2', 'c2^2'],
-      provides: ['sum'],
-      resolver: {
-        name: 'sum',
-        params: { x: 'c1^2', y: 'c2^2' },
-        results: { result: 'sum' },
-      },
+    "sum": {
+      "requires": [
+        "sqr1_result",
+        "sqr2_result"
+      ],
+      "provides": [
+        "sum_result"
+      ],
+      "resolver": {
+        "name": "sum",
+        "params": {
+          "x": "sqr1_result",
+          "y": "sqr2_result"
+        },
+        "results": {
+          "result": "sum_result"
+        }
+      }
     },
-    sqrt: {
-      requires: ['sum'],
-      provides: ['result'],
-      resolver: {
-        name: 'sqrt',
-        params: { x: 'sum' },
-        results: { result: 'result' },
-      },
-    },
-  },
+    "sqrt": {
+      "requires": [
+        "sum_result"
+      ],
+      "provides": [
+        "result"
+      ],
+      "resolver": {
+        "name": "sqrt",
+        "params": {
+          "x": "sum_result"
+        }
+      }
+    }
+  }
 };
 
 function App() {
