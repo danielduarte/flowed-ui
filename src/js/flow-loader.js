@@ -168,5 +168,10 @@ const Flow = {
             editor.view.resize();
             AreaPlugin.zoomAt(editor);
         });
+
+        window.addEventListener('resize', () => {
+            editor.view.resize();
+            AreaPlugin.zoomAt(editor);
+        });
     }
 };

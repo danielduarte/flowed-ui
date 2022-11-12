@@ -1,124 +1,99 @@
 const yafeFlowSpec = {
 
-        "tasks": {
-            "getPersonIdFromPath": {
-                "requires": [
-                    "path_params"
-                ],
-                "provides": [
-                    "id_param"
-                ],
-                "resolver": {
-                    "name": "merge-result",
-                    "params": {
-                        "obj1": {
-                            "value": {}
+
+            "tasks": {
+                "prepareParams": {
+                    "requires": [
+                        "path_params",
+                        "query_params"
+                    ],
+                    "provides": [
+                        "merged_params"
+                    ],
+                    "resolver": {
+                        "name": "merge-result",
+                        "params": {
+                            "obj1": "path_params",
+                            "obj2": "query_params"
                         },
-                        "obj2": "path_params",
-                        "template": {
-                            "value": {
-                                "id": "{{o2.personId}}"
-                            }
+                        "results": {
+                            "merged_object": "merged_params"
                         }
-                    },
-                    "results": {
-                        "merged_object": "id_param"
                     }
-                }
-            },
-            "getPersonInfo": {
-                "requires": [
-                    "id_param"
-                ],
-                "provides": [
-                    "person_info_response"
-                ],
-                "resolver": {
-                    "name": "resolve-openapi-call",
-                    "params": {
-                        "serviceId": {
-                            "value": "microservice-users"
+                },
+                "callApi": {
+                    "requires": [
+                        "merged_params"
+                    ],
+                    "provides": [
+                        "headers",
+                        "body",
+                        "status"
+                    ],
+                    "resolver": {
+                        "name": "resolve-openapi-call",
+                        "params": {
+                            "serviceId": {
+                                "value": "microservice-catalog"
+                            },
+                            "operationId": {
+                                "value": "ProductController_findByAsset"
+                            },
+                            "params": "merged_params"
                         },
-                        "operationId": {
-                            "value": "PersonController_findById"
-                        },
-                        "params": "id_param"
-                    },
-                    "results": {
-                        "body": "person_info_response"
+                        "results": {
+                            "headers": "headers",
+                            "body": "body",
+                            "status": "status"
+                        }
                     }
-                }
-            },
-            "getCredentialInfo": {
-                "requires": [
-                    "id_param"
-                ],
-                "provides": [
-                    "credential_info_response"
-                ],
-                "resolver": {
-                    "name": "resolve-openapi-call",
-                    "params": {
-                        "serviceId": {
-                            "value": "microservice-auth"
-                        },
-                        "operationId": {
-                            "value": "UserController_findById"
-                        },
-                        "params": "id_param"
-                    },
-                    "results": {
-                        "body": "credential_info_response"
-                    }
-                }
-            },
-            "mergeCredentialAndPersonInfoResponses": {
-                "requires": [
-                    "credential_info_response",
-                    "person_info_response"
-                ],
-                "provides": [
-                    "person_profile_response"
-                ],
-                "resolver": {
-                    "name": "merge-result",
-                    "params": {
-                        "obj1": "credential_info_response",
-                        "obj2": "person_info_response"
-                    },
-                    "results": {
-                        "merged_object": "person_profile_response"
-                    }
-                }
-            },
-            "prepareResponse": {
-                "requires": [
-                    "person_profile_response"
-                ],
-                "provides": [
-                    "response"
-                ],
-                "resolver": {
-                    "name": "prepare-response",
-                    "params": {
-                        "headers": {
-                            "value": {
-                                "content-type": "application/json"
+                },
+                "postProcessBody": {
+                    "requires": ["body"],
+                    "provides": ["processedBody"],
+                    "resolver": {
+                        "name": "merge-result",
+                        "params": {
+                            "obj1": "body",
+                            "template": {
+                                "value": {
+                                    "{{#each o1}}": {
+                                        "id": "{{id}}",
+                                        "entityType": "product"
+                                    }
+                                }
                             }
                         },
-                        "body": "person_profile_response",
-                        "status": {
-                            "value": "200"
+                        "results": {
+                            "merged_object": "processedBody"
                         }
-                    },
-                    "results": {
-                        "response": "response"
+                    }
+                },
+                "prepareResponse": {
+                    "requires": [
+                        "headers",
+                        "processedBody",
+                        "status"
+                    ],
+                    "provides": [
+                        "response"
+                    ],
+                    "resolver": {
+                        "name": "prepare-response",
+                        "params": {
+                            "headers": "headers",
+                            "body": "processedBody",
+                            "status": "status"
+                        },
+                        "results": {
+                            "response": "response"
+                        }
                     }
                 }
             }
         }
 
-};
+;
 
 
 const elkFlow = yafeToElkFlowSpec(yafeFlowSpec);
@@ -155,9 +130,14 @@ const render = (yafeFlowSpec) => {
 render(yafeFlowSpec);
 
 document.getElementById('code').value = JSON.stringify(yafeFlowSpec, null, 2) + '\n';
-window.addEventListener('resize', () => { render(yafeFlowSpec); });
 
 const code = document.getElementById('code');
+
+let currentTimeout = null;
 code.addEventListener('keydown', (event) => {
-    console.log(event.target.value);
+    clearTimeout(currentTimeout);
+    currentTimeout = setTimeout(() => {
+        const spec = JSON.parse(event.target.value);
+        render(spec);
+    }, 1000);
 });
